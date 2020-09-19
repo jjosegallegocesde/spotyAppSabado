@@ -1,22 +1,23 @@
-//1. Referenciar etiquetas HTML en variables de JS
-let titulo = document.getElementById("titulo");
-let reproductoMP3 = document.getElementById("audio");
-let boton1 = document.getElementById("pista1");
-let boton2 = document.getElementById("pista2");
+const url = "https://api.spotify.com/v1/artists/4gzpq5DPGxSnKTe4SA8HAU/top-tracks?country=US";
+const token = "Bearer BQCTmfpH-0ZjcutSvhLRfhEyedcMLErgEv9NL0QnattqhuhiDP853W8-OkgqA9kmub8dSLReFfn-VALBt27sFs3h5-iMEhEu51yfU4_JW4qTsZhMmpkMpjxOLEgYRTlCD0F5asw-pWzRWBhCPfY";
 
-//2. Para modificar el texto de una etiqueta desde JS usamos la propiedad textcontent
-titulo.textContent = 'Coldplay';
-
-//3. Escuhar eventos 
-boton1.addEventListener('click', activarPista1);
-boton2.addEventListener('click', activarPista2);
-
-
-//4. Defino que hacen las funciones del punto 3 
-function activarPista1() {
-    reproductoMP3.src = 'audio/audio1.mp3';
+const parametros = {
+    method: "GET",
+    headers: { "Authorization": token },
 }
 
-function activarPista2() {
-    reproductoMP3.src = 'audio/audio2.mp3';
+fetch(url, parametros)
+    .then(respuesta => respuesta.json())
+    .then(datos => depurarDatos(datos));
+
+
+
+function depurarDatos(datos) {
+    /*console.log(datos); //objeto (tracks)
+    console.log(datos.tracks); //arreglo (10 posiciones)
+    console.log(datos.tracks[0]); //primer objeto de 10 posibles*/
+    console.log(datos.tracks[0].preview_url);
+    console.log(datos.tracks[0].name);
+
+
 }
