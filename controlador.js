@@ -20,36 +20,36 @@ function generarToken(datos) {
     let token = datos.access_token;
     token = "Bearer " + token;
 
+    const urlGET = "https://api.spotify.com/v1/artists/4gzpq5DPGxSnKTe4SA8HAU/top-tracks?country=US";
 
+    const parametrosGET = {
+        method: "GET",
+        headers: { "Authorization": token },
+    }
 
+    fetch(urlGET, parametrosGET)
+        .then(respuesta => respuesta.json())
+        .then(datos => depurarDatos(datos));
 
 }
-
-
-
-
-/*const url = "https://api.spotify.com/v1/artists/4gzpq5DPGxSnKTe4SA8HAU/top-tracks?country=US";
-
-
-const parametros = {
-    method: "GET",
-    headers: { "Authorization": token },
-}
-
-
-
-fetch(url, parametros)
-    .then(respuesta => respuesta.json())
-    .then(datos => depurarDatos(datos));
-
-
 
 function depurarDatos(datos) {
-    console.log(datos); //objeto (tracks)
-    console.log(datos.tracks); //arreglo (10 posiciones)
-    console.log(datos.tracks[0]); //primer objeto de 10 posibles
-    console.log(datos.tracks[0].preview_url);
-    console.log(datos.tracks[0].name);
+
+    //En 3 variables JS almacenamos los recursos que llegan desde el API
+    let audio1 = (datos.tracks[0].preview_url); //audio
+    let titulo1 = (datos.tracks[0].name); //titulo
+    let imagen1 = (datos.tracks[0].album.images[0].url); //imagen
+
+    //Referenciamos etiquetas HTML usando el DOM
+    let audio1DOM = document.getElementById("audio1");
+    let titulo1DOM = document.getElementById("titulo1");
+    let imagen1DOM = document.getElementById("imagen1");
+
+    //Creo la referencia y modifico el contenido de las etiquetas
+    audio1DOM.src = audio1;
+    titulo1DOM.textContent = titulo1;
+    imagen1DOM.src = imagen1;
 
 
-}*/
+
+}
